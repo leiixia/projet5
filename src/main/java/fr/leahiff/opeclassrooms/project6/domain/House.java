@@ -9,8 +9,6 @@ import java.util.List;
 public class House {
 
     private String address;
-    private List<String> medications;
-    private List<String> allergies;
     private List<Person> persons = new ArrayList<>();
 
     public String getAddress() {
@@ -20,21 +18,6 @@ public class House {
         this.address = address;
     }
 
-    public List<String> getMedications() {
-        return medications;
-    }
-    public void setMedications(List<String> medications) {
-        this.medications = medications;
-    }
-
-    public List<String> getAllergies() {
-        return allergies;
-    }
-    public void setAllergies(List<String> allergies) {
-        this.allergies = allergies;
-    }
-
-
     public List<Person> getPersons() {
         return persons;
     }
@@ -42,7 +25,6 @@ public class House {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-
 
     public void addPerson(Person person){
         persons.add(person);

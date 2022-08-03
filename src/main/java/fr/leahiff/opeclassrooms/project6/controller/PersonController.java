@@ -3,7 +3,6 @@ package fr.leahiff.opeclassrooms.project6.controller;
 import java.util.*;
 
 import fr.leahiff.opeclassrooms.project6.DataLoader;
-import fr.leahiff.opeclassrooms.project6.Project6Application;
 import fr.leahiff.opeclassrooms.project6.domain.MedicalRecord;
 import fr.leahiff.opeclassrooms.project6.domain.Utils;
 import org.slf4j.Logger;
@@ -25,7 +24,7 @@ public class PersonController {
 
 	@RequestMapping(value = "/personInfo", method = RequestMethod.GET)
 	public List<Person> personInfo(@RequestParam(name = "firstName", required = false) String firstName, @RequestParam(name = "lastName", required = false) String lastName) {
-		logger.info("Entre dans la methode personInfo avec les parametres firstName, lastName.");
+		logger.info("Entre dans la methode personInfo avec les parametres firstName: " + firstName + " et lastName: " +lastName);
 		List<Person> resultat = new ArrayList<>();
 		for (Person person : dataLoader.persons) {
 			boolean match = false;
@@ -50,6 +49,7 @@ public class PersonController {
 					int age = Person.getAgeFromBirthDate(tmp);
 					person.setAge(age);
 				} catch (Exception e) {
+					logger.error("Echec de l'execution de la methode");
 
 				}
 
@@ -84,6 +84,7 @@ public class PersonController {
 				result.add(person.getEmail());
 			}
 		}
+		logger.debug("Sortie de la methode avec Json");
 		return result;
 	}
 
@@ -111,7 +112,7 @@ public class PersonController {
 
 	@PutMapping(value = "/person")
 	public List<Person> modifyPerson(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String city, @RequestParam Integer zip, @RequestParam String phone, @RequestParam String email ){
-		logger.info("Entre dans la methode person avec les parametres firstName, lastName, address, city, zip, phone, email.");
+		logger.info("Entre dans la methode person avec les parametres firstName: " + firstName + ", lastName: " + lastName + ", address: " + address + ", city: " + city + ", zip: " + zip + ", phone: " + phone + ", email: " + email);
 		for(Person person : dataLoader.persons){
 			if (firstName.equalsIgnoreCase(person.getFirstName()) && (lastName.equalsIgnoreCase(person.getLastName()))){
 				person.setAddress(address);
@@ -128,7 +129,7 @@ public class PersonController {
 
 	@PostMapping(value = "/person")
 	public List<Person> addPerson(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String city,@RequestParam Integer zip, @RequestParam String phone, @RequestParam String email){
-		logger.info("Entre dans la methode person avec les parametres firstName, lastName, address, city, zip, phone, email.");
+		logger.info("Entre dans la methode person avec les parametres firstName: " + firstName + ", lastName: " + lastName + ", address: " + address + ", city: " + city + ", zip: " + zip + ", phone: " + phone + ", email: " + email);
 		List<Person> newPerson = new ArrayList<>();
 		boolean exist = false;
 		for(Person person: dataLoader.persons){

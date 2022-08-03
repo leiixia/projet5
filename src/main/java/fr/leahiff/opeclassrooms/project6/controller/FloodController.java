@@ -1,7 +1,6 @@
 package fr.leahiff.opeclassrooms.project6.controller;
 
 import fr.leahiff.opeclassrooms.project6.DataLoader;
-import fr.leahiff.opeclassrooms.project6.Project6Application;
 import fr.leahiff.opeclassrooms.project6.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +18,11 @@ public class FloodController {
     @Autowired
     DataLoader dataLoader;
 
-    static Logger logger = LoggerFactory.getLogger(Project6Application.class);
+    static Logger logger = LoggerFactory.getLogger(FloodController.class);
 
     @RequestMapping(value= "/flood/stations", method = RequestMethod.GET)
     public List<House> flood (@RequestParam(name = "stations", required = false) String station) {
-        logger.info("Entre dans la methode flood/stations avec le parametre stations.");
+        logger.info("Entre dans la methode flood/stations avec le parametre station: " + station);
         List<House> result = new ArrayList<>();
         for (Person person : dataLoader.persons) {
                String address = person.getAddress();
@@ -78,7 +77,7 @@ public class FloodController {
 
     @PutMapping(value = "/firestation")
     public List<FireStation> modifyFirestation(@RequestParam String station, @RequestParam String address){
-        logger.info("Entre dans la methode firestation avec les parametres station et address.");
+        logger.info("Entre dans la methode firestation avec les parametres station: " + station + " et address: " + address);
         for(FireStation fireStation: dataLoader.fireStations){
             if(address.equalsIgnoreCase(fireStation.getAddress())){
                 fireStation.setStation(station);
@@ -91,7 +90,7 @@ public class FloodController {
 
     @DeleteMapping(value = "/firestation")
     public List<FireStation> deleteFirestation(@RequestParam String address){
-        logger.info("Entre dans la methode firestation avec le parametre address.");
+        logger.info("Entre dans la methode firestation avec le parametre address: " + address);
         List<FireStation> newFirestation = new ArrayList<>();
         for (FireStation fireStation: dataLoader.fireStations){
             if(address.equalsIgnoreCase(fireStation.getAddress())){
@@ -112,7 +111,7 @@ public class FloodController {
 
     @PostMapping(value = "/firestation")
     public List<FireStation> addFirestation(@RequestParam String address, @RequestParam String station) {
-        logger.info("Entre dans la methode firestation avec les parametres address et station.");
+        logger.info("Entre dans la methode firestation avec les parametres address: " + address + " et station: " + station);
         List<FireStation> newFirestation = new ArrayList<>();
         Boolean exist = false;
         for(FireStation firestation : dataLoader.fireStations){

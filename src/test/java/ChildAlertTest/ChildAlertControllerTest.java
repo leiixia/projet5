@@ -44,7 +44,7 @@ public class ChildAlertControllerTest {
     }
 
     @Test
-    public void testGetAdult() throws Exception{
+    public void getAdult() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/childAlert")
                 .contentType("application/json")
                 .param("address", "1509 Culver St")

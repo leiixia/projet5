@@ -1,7 +1,6 @@
 package fr.leahiff.opeclassrooms.project6.controller;
 
 import fr.leahiff.opeclassrooms.project6.DataLoader;
-import fr.leahiff.opeclassrooms.project6.Project6Application;
 import fr.leahiff.opeclassrooms.project6.domain.ChildAlertResult;
 import fr.leahiff.opeclassrooms.project6.domain.Person;
 import fr.leahiff.opeclassrooms.project6.domain.Utils;
@@ -22,11 +21,11 @@ public class ChildAlertController {
     @Autowired
     DataLoader dataLoader;
 
-    static Logger logger = LoggerFactory.getLogger(Project6Application.class);
+    static Logger logger = LoggerFactory.getLogger(ChildAlertController.class);
 
     @RequestMapping(value = "/childAlert", method = RequestMethod.GET)
     public ChildAlertResult childAlert(@RequestParam(name = "address", required = true) String address) {
-        logger.info("Entre dans la methode ChildAlert avec le parametre address.");
+        logger.info("Entre dans la methode ChildAlert avec le parametre address: " + address);
         ChildAlertResult result = new ChildAlertResult();
         for(Person person: dataLoader.persons){
             if(address.equalsIgnoreCase(person.getAddress())){

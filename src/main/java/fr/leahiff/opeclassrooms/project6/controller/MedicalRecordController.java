@@ -1,7 +1,6 @@
 package fr.leahiff.opeclassrooms.project6.controller;
 
 import fr.leahiff.opeclassrooms.project6.DataLoader;
-import fr.leahiff.opeclassrooms.project6.Project6Application;
 import fr.leahiff.opeclassrooms.project6.domain.MedicalRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +18,11 @@ public class MedicalRecordController {
     DataLoader dataLoader;
 
 
-    static Logger logger = LoggerFactory.getLogger(Project6Application.class);
+    static Logger logger = LoggerFactory.getLogger(MedicalRecordController.class);
 
     @PostMapping(value = "/medicalRecord")
     public List<MedicalRecord> addMedicalRecord(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String birthdate, @RequestParam List<String> medications, @RequestParam List<String> allergies) {
-        logger.info("Entre dans la methode medicalRecord avec les parametres firstName, lastName, birthdate, medications, allergies.");
+        logger.info("Entre dans la methode medicalRecord avec les parametres firstName: " + firstName + ", lastName: " + lastName + ", birthdate: " + birthdate + ", medications: " + medications + ", allergies: " + allergies);
         List<MedicalRecord> newMedicalRecord = new ArrayList<>();
         Boolean exist = false;
         for (MedicalRecord medicalRecord : dataLoader.medicalRecords) {
@@ -47,7 +46,7 @@ public class MedicalRecordController {
 
     @PutMapping(value = "/medicalRecord")
     public List<MedicalRecord> modifyMedicalRecord(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String birthdate, @RequestParam List<String> medications, @RequestParam List<String> allergies){
-        logger.info("Entre dans la methode medicalRecord avec les parametres firstName, lastName, birthdate, medications, allergies.");
+        logger.info("Entre dans la methode medicalRecord avec les parametres firstName: " + firstName + ", lastName: " + lastName + ", birthdate: " + birthdate + ", medications: " + medications + ", allergies: " + allergies);
         for(MedicalRecord medicalRecord : dataLoader.medicalRecords){
             if(firstName.equalsIgnoreCase(medicalRecord.getFirstName()) && (lastName.equalsIgnoreCase(medicalRecord.getLastName()))){
                 medicalRecord.setBirthdate(birthdate);
@@ -62,7 +61,7 @@ public class MedicalRecordController {
 
     @DeleteMapping(value = "/medicalRecord")
     public List<MedicalRecord> deleteMedical(@RequestParam String firstName, @RequestParam String lastName){
-        logger.info("Entre dans la methode medicalRecord avec les parametres firstName, lastName.");
+        logger.info("Entre dans la methode medicalRecord avec les parametres firstName: " + firstName + "et lastName: " + lastName);
         List<MedicalRecord> newMedicalRecord = new ArrayList<>();
         for(MedicalRecord medicalRecord : dataLoader.medicalRecords){
             if(firstName.equalsIgnoreCase(medicalRecord.getFirstName()) && (lastName.equalsIgnoreCase(medicalRecord.getLastName()))){

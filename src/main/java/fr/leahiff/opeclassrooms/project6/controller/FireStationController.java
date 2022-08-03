@@ -20,11 +20,11 @@ public class FireStationController {
     @Autowired
     DataLoader dataLoader;
 
-    static Logger logger = LoggerFactory.getLogger(Project6Application.class);
+    static Logger logger = LoggerFactory.getLogger(FireStationController.class);
 
     @RequestMapping(value = "/phoneAlert", method = RequestMethod.GET)
     public Set<String> PersonPhone (@RequestParam(name = "firestation", required = false) String firestation) {
-        logger.info("Entre dans la methode phoneAlert avec le parametre firestation");
+        logger.info("Entre dans la methode phoneAlert avec le parametre firestation: " + firestation);
        Set<String> result = new HashSet<>();
         for (FireStation current: dataLoader.fireStations) {
             if (firestation.equalsIgnoreCase(current.getStation())) {
@@ -36,6 +36,7 @@ public class FireStationController {
                 }
             }
         }
+        logger.debug("Sortie de la methode avec Json.");
         return result;
     }
 
@@ -46,27 +47,26 @@ public class FireStationController {
                 result.add(person);
             }
         }
-        logger.debug("Sortie de la methode avec Json");
         return result;
 
     }
 
         @RequestMapping(value = "/fire", method = RequestMethod.GET)
-        public Habitant habitant (@RequestParam(name ="address", required = false) String address) {
-            logger.info("Entre dans la methode fire avec le parametre address");
-            Habitant result = new Habitant();
+        public ResultFire fire (@RequestParam(name ="address", required = false) String address) {
+            logger.info("Entre dans la methode fire avec le parametre address: " + address);
+            ResultFire result = new ResultFire();
             for(Person person : dataLoader.persons){
 
             if(address.equalsIgnoreCase(person.getAddress())){
-                Habitant habitant = findHabitantByAddress(address);
+                Person persons = findPersonByAddress(address);
                 String tmp = Utils.getBirthdate(person.getFirstName(), person.getLastName(), dataLoader.medicalRecords);
 
                 int age = person.getAgeFromBirthDate(tmp);
 
                 Person person1 = new Person();
                 String stationCode = getStationCodeByAddress(address);
-                habitant.setAddress(address);
-                person1.setStation(stationCode);
+                result.setStation(stationCode);
+                persons.setAddress(address);
                 person1.setAge(age);
                 person1.setFirstName(person.getFirstName());
                 person1.setAddress(person.getAddress());
@@ -92,8 +92,8 @@ public class FireStationController {
         return null;
     }
 
-    private Habitant findHabitantByAddress(String address){
-        Habitant result = new Habitant();
+    private Person findPersonByAddress(String address){
+         Person result = new Person();
         for (Person person : dataLoader.persons){
             if(person.getAddress().equalsIgnoreCase(address)){
             }
@@ -122,20 +122,11 @@ public class FireStationController {
         return null;
     }
 
-    private Person findPersonsStation(String station){
-        Person result = new Person();
-        for(FireStation fireStation : dataLoader.fireStations ){
-            if(fireStation.getStation().equalsIgnoreCase(station)){
-                result.getStation();
-            }
-        }
-        return result;
-    }
 
 
     @RequestMapping(value = "/firestation", method = RequestMethod.GET)
     public ResultatFireStation station(@RequestParam(name = "stationNumber", required = false) String stationNumber) {
-        logger.info("Entre dans la methode firestation avec le parametre stationNumber");
+        logger.info("Entre dans la methode firestation avec le parametre stationNumber: " + stationNumber);
         ResultatFireStation results = new ResultatFireStation();
         for (FireStation fireStation : dataLoader.fireStations) {
             String address = fireStation.getAddress();

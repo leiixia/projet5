@@ -1,5 +1,7 @@
 package fr.leahiff.opeclassrooms.project6.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -9,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ResultatFireStation {
+
+    static Logger logger = LoggerFactory.getLogger(ResultatFireStation.class);
 
     private List<Person> persons = new ArrayList<>();
     private int adultNumber;
@@ -47,6 +51,7 @@ public class ResultatFireStation {
             return age;
         }
         catch (Exception e){
+            logger.error("Sortie de la methode en retournant 0");
             return 0;
         }
 

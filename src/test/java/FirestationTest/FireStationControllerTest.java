@@ -3,9 +3,8 @@ package FirestationTest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.leahiff.opeclassrooms.project6.Project6Application;
-import fr.leahiff.opeclassrooms.project6.domain.FireStation;
-import fr.leahiff.opeclassrooms.project6.domain.Habitant;
 import fr.leahiff.opeclassrooms.project6.domain.Person;
+import fr.leahiff.opeclassrooms.project6.domain.ResultFire;
 import fr.leahiff.opeclassrooms.project6.domain.ResultatFireStation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import javax.xml.transform.Result;
 
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class FireStationControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testPhoneAlert() throws Exception{
+    public void getPhoneAlert() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/phoneAlert")
                 .contentType("application/json")
                 .param("firestation", "2")
@@ -59,10 +57,17 @@ public class FireStationControllerTest {
         MvcResult result = resultActions.andReturn();
         String contentAsString = result.getResponse().getContentAsString();
         ObjectMapper mapper = new ObjectMapper();
-        Habitant habitantList = mapper.readValue(contentAsString, new TypeReference<Habitant>() {
+        ResultFire resultFire = mapper.readValue(contentAsString, new TypeReference<ResultFire>() {
         });
-        assertThat(habitantList.getPersons()).isNotNull();
-        //assertThat(habitantList.contains("Boyd")).isTrue();
+        assertThat(resultFire.getPersons()).isNotNull();
+        List<Person> persons = resultFire.getPersons();
+        boolean found = false;
+        for (Person person : persons){
+            if(person.getAddress().equalsIgnoreCase("1509 Culver St")){
+                found = true;
+            }
+        }
+        assertThat(found== true);
     }
 
     @Test

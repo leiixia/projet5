@@ -3,17 +3,20 @@ package fr.leahiff.opeclassrooms.project6.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
+
+	static Logger logger = LoggerFactory.getLogger(Person.class);
 
 	private  String firstName;
 	private  String lastName;
@@ -24,25 +27,7 @@ public class Person {
 	private  String email;
 	private  Integer age;
 	private  MedicalRecord medicalRecord;
-	private String station;
-	private List<Person> persons = new ArrayList<>();
 
-
-	public List<Person> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
-
-	public String getStation() {
-		return station;
-	}
-
-	public void setStation(String station) {
-		this.station = station;
-	}
 
 	public MedicalRecord getMedicalRecord() {
 		return medicalRecord;
@@ -127,18 +112,14 @@ public class Person {
 				return age;
 			}
 			catch (Exception e){
+				logger.error("Sortie de la methode en retournant 0");
 				return 0;
 			}
 
 		}
 
-	public void add(Person person) {
-		persons.add(person);
-	}
 
 
-	public void addPerson(Person person1) {
-		persons.add(person1);
-	}
+
 }
 
