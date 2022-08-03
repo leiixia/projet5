@@ -146,7 +146,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testCommunityEmail() throws Exception{
+    public void getCommunityEmail() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/communityEmail")
                 .contentType("application/json")
                 .param("city", "Culver")
@@ -188,7 +188,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testPersonInfoWithLastNameOnly() throws Exception{
+    public void getPersonInfoWithLastNameOnly() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/personInfo")
                 .contentType("application/json")
                 .param("lastName", "Boyd")
@@ -208,7 +208,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void testPersonInfoWithFirstNameOnly() throws Exception{
+    public void getPersonInfoWithFirstNameOnly() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/personInfo")
                 .contentType("application/json")
                 .param("firstName", "John")
@@ -225,7 +225,7 @@ public class PersonControllerTest {
         }
     }
     @Test
-    public void testPersonInfoWithoutLastNameAndFirstName() throws Exception{
+    public void getPersonInfoWithoutLastNameAndFirstName() throws Exception{
         ResultActions resultActions = mockMvc.perform(get("/personInfo")
                 .contentType("application/json")
         );
